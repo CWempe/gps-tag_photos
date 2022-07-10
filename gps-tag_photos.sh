@@ -8,8 +8,6 @@ LAST_FILE_STORE_DIR="/opt/gps-tag_photos"
 LAST_FILE_STORE_NAME="last_file_store.txt"
 LAST_FILE_STORE_PATH="${LAST_FILE_STORE_DIR}/${LAST_FILE_STORE_NAME}"
 
-image_name="$(ls -Art ${IMAGE_DIR} | tail -n 1)"
-image_path="${IMAGE_DIR}/${image_name}"
 last_file=""
 image=""
 
@@ -49,7 +47,7 @@ echo "last_file: ${last_file}"
 echo ""
 
 # Find all photos newer than ${last_file}
-for image in $(find "${IMAGE_DIR}" -type f -newer ${last_file}); do
+for image in $(find "${IMAGE_DIR}" -type f -newer "${last_file}"); do
     echo "Current file: ${image}"
 
     # check if file already has gps coordinates
@@ -62,7 +60,7 @@ for image in $(find "${IMAGE_DIR}" -type f -newer ${last_file}); do
           -EXIF:GPSLatitudeRef="${GPSLatitudeRef}" \
           -EXIF:GPSLongitude="${GPSLongitude}" \
           -EXIF:GPSLongitudeRef="${GPSLongitudeRef}" \
-          ${image}
+          "${image}"
     fi
 
 done
