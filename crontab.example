@@ -1,0 +1,26 @@
+#!/bin/bash
+# You can use different gps coordinates based on time by using different parameter values for differen cron times.
+# This ise usefull if you know when your system will be on a specific location in the future.
+# So you do not need to change anything on demand.
+#
+# This file can be places in /etc/cron.d
+
+#MIN  HOUR  DAY  MON DAY
+
+# Location 1
+*/5    *    1-13 JUL *  root /opt/gps-tag_photos/gps-tag_photos.sh $(hostname) 10.000000 North 1.000000 East
+
+
+# Locations 2
+*/15   *   14-22 JUL *  root /opt/gps-tag_photos/gps-tag_photos.sh $(hostname) 20.00000 North 2.00000 East
+*/15  1-15 23    JUL *  root /opt/gps-tag_photos/gps-tag_photos.sh $(hostname) 20.00000 North 2.00000 East
+
+
+# Location 3
+*/15 16-23 23    JUL *  root /opt/gps-tag_photos/gps-tag_photos.sh $(hostname) 30.00000 North 3.00000 East
+*/15  0-8  24    JUL *  root /opt/gps-tag_photos/gps-tag_photos.sh $(hostname) 30.00000 North 3.00000 East
+
+
+# Location 2
+*/15  9-23 24    JUL *  root /opt/gps-tag_photos/gps-tag_photos.sh $(hostname) 40.00000 North 4.00000 East
+*/15   *   25-26 JUL *  root /opt/gps-tag_photos/gps-tag_photos.sh $(hostname) 40.00000 North 4.00000 East
