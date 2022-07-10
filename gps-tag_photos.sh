@@ -1,4 +1,6 @@
 #!/bin/bash
+# This script will set artist and gps coordinates to alle images that do not have these yet.
+# Usage: gps-tag_photos.sh <artist> <GPSLatitude> <GPSLatitudeRef> <GPSLongitude> <GPSLongitudeRef>
 
 # Constants
 IMAGE_DIR="/var/www/html/data/images"
@@ -11,9 +13,30 @@ image_path="${IMAGE_DIR}/${image_name}"
 last_file=""
 image=""
 
+# EXIF data
+artist="$1"
+GPSLatitude="$2"
+GPSLatitudeRef="$3"
+GPSLongitude="$4"
+GPSLongitudeRef="$5"
+
+
+echo "artist: ${artist}"
+echo "GPSLatitude: ${GPSLatitude}"
+echo "GPSLatitudeRef: ${GPSLatitudeRef}"
+echo "GPSLongitude: ${GPSLongitude}"
+echo "GPSLongitudeRef: ${GPSLongitudeRef}"
+echo ""
+
+# check if parameters are set
+if [[ -z "${artist}" ]] || [[ -z "${GPSLatitude}" ]] || [[ -z "${GPSLatitudeRef}" ]] || [[ -z "${GPSLongitude}" ]] || [[ -z "${GPSLongitudeRef}" ]]; then
+    echo "Some parameters are empty!"
+    exit 1
+fi
+
+
 # get last checked image
 if [[ -s "${LAST_FILE_STORE_PATH}" ]]; then
-    echo "${LAST_FILE_STORE_PATH} existiert"
     last_file="$(cat ${LAST_FILE_STORE_PATH})"
 else
     # set oldest file as ${last_file}
@@ -35,10 +58,10 @@ for image in $(find "${IMAGE_DIR}" -type f -newer ${last_file}); do
           -P \
           -overwrite_original \
           -artist="Fotobox" \
-          -EXIF:GPSLatitude="51.976503" \
-          -GPSLatitudeRef="North" \
-          -EXIF:GPSLongitude="9.548523" \
-          -GPSLongitudeRef="East" \
+          -EXIF:GPSLatitude="${GPSLatitude}" \
+          -EXIF:GPSLatitudeRef="${GPSLatitudeRef}" \
+          -EXIF:GPSLongitude="${GPSLongitude}" \
+          -EXIF:GPSLongitudeRef="${GPSLongitudeRef}" \
           ${image}
     fi
 
