@@ -3,6 +3,8 @@
 # This ise usefull if you know when your system will be on a specific location in the future.
 # So you do not need to change anything on demand.
 #
+# See https://crontab.guru/ for more details.
+#
 # This file can be places in /etc/cron.d
 
 #MIN  HOUR  DAY  MON DAY
